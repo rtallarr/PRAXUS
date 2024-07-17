@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AdminService } from 'src/app/servicios/admin/admin.service';
+import { DominiosAceptadosService } from 'src/app/servicios/dominios_aceptados/dominios-aceptados.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -23,6 +24,7 @@ export class AdminComponent {
   nombre_carrera: any;
   correos_admitidos: any;
   id_carrera_actual: any;
+  lista_dominios: any[] = [];
 
 
   createForm() {
@@ -32,7 +34,11 @@ export class AdminComponent {
     });
   }
 
-  constructor(private admin: AdminService, private _snackBar: MatSnackBar, private fb: FormBuilder, private router: Router) {
+  constructor(
+    private admin: AdminService, private dominios_service: DominiosAceptadosService,
+    private _snackBar: MatSnackBar, private fb: FormBuilder,
+    private router: Router
+  ) {
     let _data: any = {};
     this.admin.getCarrera().subscribe({
       next: data => {
@@ -65,6 +71,18 @@ export class AdminComponent {
       complete: () => {
         this.encargados = _data.body.data;
         console.log(this.encargados)
+      }
+    });
+    let response_dominios: any = {};
+    dominios_service.get_all().subscribe({
+      next: (data: any) => {
+        response_dominios = { ...response_dominios, ...data };
+      },
+      error: (err: any) => { },
+      complete: () => {
+        response_dominios.body.forEach((obj: any) => {
+          this.lista_dominios.push(obj);
+        });
       }
     });
     this.createForm();
@@ -193,20 +211,24 @@ export class AdminComponent {
     })
   }
 
-
-  //encargado(){
-  //  this.router.navigate(['/admin/crear-encargado']);
-  //}
-  //
-  //carrera(){
-  //  this.router.navigate(['/admin/crear-carrera']);
-  //}
-  //
-  //asignacion(){
-  //  this.router.navigate(['/admin/asignacion']);
-  //}
-  //
-  //eliminar(){
-  //  this.router.navigate(['/admin/eliminar-encargado']);
-  //}
+  eliminar_dominio(id: number | string): void {
+    this.dominios_service.delete(id).subscribe({
+      next: (_: any) => { },
+      error: (err: any) => {
+        this._snackBar.open("Error al eliminar dominio", "Cerrar", {
+          panelClass: ['red-snackbar'],
+          duration: 2000
+        });
+      },
+      complete: () => {
+        this._snackBar.open("Dominio eliminado exitosamente, redirigiendo...", "Cerrar", {
+          panelClass: ['green-snackbar'],
+          duration: 2000
+        });
+        setTimeout(function () {
+          window.location.reload();
+        }, 2000);
+      }
+    });
+  }
 }

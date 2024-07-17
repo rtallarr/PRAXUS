@@ -23,10 +23,11 @@
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-body">
-                        <button id="myBtn" class="btn btn-primary mb-2" data-target="#crear-encargado-modal" data-toggle="modal">
+                        <button id="myBtn" class="btn btn-primary mb-2" data-target="#crear-encargado-modal"
+                            data-toggle="modal">
                             Agregar Encargados
                         </button>
-                        
+
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-hover" id="dataTable" width="100%"
                                 cellspacing="0">
@@ -44,8 +45,12 @@
                                         <td>{{encargado.carrera?.nombre}}</td>
                                         <td>{{encargado.usuario?.correo}}</td>
                                         <td>
-                                            <button class="btn btn-primary" (click)="editar(encargado.id,encargado.carrera?.nombre,encargado.carrera?.id)" data-target="#editar-encargado-modal" data-toggle="modal">Editar</button>
-                                            <button class="btn btn-secondary ml-2" (click)="eliminar(encargado.id,encargado.carrera?.id)">Eliminar</button>
+                                            <button class="btn btn-primary"
+                                                (click)="editar(encargado.id,encargado.carrera?.nombre,encargado.carrera?.id)"
+                                                data-target="#editar-encargado-modal"
+                                                data-toggle="modal">Editar</button>
+                                            <button class="btn btn-secondary ml-2"
+                                                (click)="eliminar(encargado.id,encargado.carrera?.id)">Eliminar</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -61,32 +66,69 @@
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-body">
-                        <button id="myBtn" class="btn btn-primary mb-2" data-target="#crear-carrera-modal" data-toggle="modal">
-                            Agregar Carreras
-                        </button>
-                        
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" id="dataTable" width="100%"
-                                cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th style="vertical-align: bottom;">Nombre</th>
-                                        <th style="vertical-align: bottom;">Correos Admitidos</th>
-                                        <th style="vertical-align: bottom;">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let carrera of carreras">
-                                        <td>{{carrera.nombre}}</td>
-                                        <td>{{carrera.correo}}</td>
-                                        <td>
-                                            <button class="btn btn-primary" (click)="editar_carrera(carrera.id,carrera.nombre,carrera.correo)" data-target="#editar-carrera-modal" data-toggle="modal">Editar</button>
-                                            <button class="btn btn-secondary ml-2" (click)="eliminar_carrera(carrera.id)">Eliminar</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="row">
+                            <div class="col-6">
+                                <button id="myBtn" class="btn btn-primary mb-2" data-target="#crear-carrera-modal"
+                                    data-toggle="modal">
+                                    Agregar Carreras
+                                </button>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover" id="dataTable"
+                                        cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align: bottom;">Carrera</th>
+                                                <th style="vertical-align: bottom;">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let carrera of carreras">
+                                                <td>{{carrera.nombre}}</td>
+                                                <!-- <td>{{carrera.correo}}</td> -->
+                                                <td>
+                                                    <button class="btn btn-primary"
+                                                        (click)="editar_carrera(carrera.id,carrera.nombre,carrera.correo)"
+                                                        data-target="#editar-carrera-modal"
+                                                        data-toggle="modal">Editar</button>
+                                                    <button class="btn btn-secondary ml-2"
+                                                        (click)="eliminar_carrera(carrera.id)">Eliminar</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <button id="myBtn" class="btn btn-primary mb-2" data-target="#agregar-dominio-modal"
+                                    data-toggle="modal">
+                                    Agregar Dominios
+                                </button>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align: bottom;">Dominios Admitidos</th>
+                                                <th style="vertical-align: bottom;">Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let obj of lista_dominios">
+                                                <td>
+                                                    {{"@"+obj.dominio}}
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-secondary ml-2"
+                                                        (click)="eliminar_dominio(obj.id)">Eliminar</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
+
+
+
                     </div>
                 </div>
 
@@ -125,8 +167,11 @@
 
 <app-crear-carrera-modal></app-crear-carrera-modal>
 <app-crear-encargado-modal></app-crear-encargado-modal>
-<app-editar-encargado-modal [id_encargado]="id_encargado" [carrera_actual]="carrera_actual" [lista_carreras]="carreras" [id_carrera_actual]="id_carrera_actual"></app-editar-encargado-modal>
-<app-editar-carrera-modal [id_carrera]="id_carrera" [nombre_carrera]="nombre_carrera" [correos_admitidos]="correos_admitidos"></app-editar-carrera-modal>
+<app-editar-encargado-modal [id_encargado]="id_encargado" [carrera_actual]="carrera_actual" [lista_carreras]="carreras"
+    [id_carrera_actual]="id_carrera_actual"></app-editar-encargado-modal>
+<app-editar-carrera-modal [id_carrera]="id_carrera" [nombre_carrera]="nombre_carrera"
+    [correos_admitidos]="correos_admitidos"></app-editar-carrera-modal>
+<app-agregar-dominio-modal></app-agregar-dominio-modal>
 
 <!-- Logout Modal-->
 

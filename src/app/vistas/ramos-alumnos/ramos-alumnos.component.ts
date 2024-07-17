@@ -71,7 +71,8 @@ export class RamosAlumnosComponent {
             //let arreglo_ramos_aux = respuesta.body.estadistica_ramos.array;
             //console.log("arreglo ramos aux:");
             //console.log(arreglo_ramos_aux[0]);
-
+            console.log(respuesta.body)
+            console.log("Estadística Ramos: " + respuesta.body.estadistica_ramos)
             this.arreglo_ramos = respuesta.body.estadistica_ramos.array[0];
 
             for (let i = 0; i < this.arreglo_ramos.length; i++) {

@@ -12,7 +12,7 @@ export class ConfirmacionUsuarioComponent {
 
   correo_confirmado: boolean = false;
   usuario: any = {};
-  
+
   constructor(activated_route: ActivatedRoute, private usuario_service: UsuarioService) {
     let token = "";
     let iv = "";
@@ -41,7 +41,7 @@ export class ConfirmacionUsuarioComponent {
       }
     });
 
-   }
+  }
 
 
 

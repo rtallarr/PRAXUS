@@ -26,11 +26,10 @@ export class NotificacionesService extends Socket {
       url: environment.url_back_chat,
       options: {
         query: {
-          nameRoom: "notificaciones" + JSON.parse(localStorage.getItem("auth-user") || "{}").userdata.id
+          nameRoom: "notificaciones" + JSON.parse(localStorage.getItem("auth-user") || "{}").userdata?.id
         },
       }
     });
-    //console.log("sala notificaciones" + JSON.parse(localStorage.getItem("auth-user") || "{}").userdata.id);
     this.listen();
   }
 
@@ -50,7 +49,7 @@ export class NotificacionesService extends Socket {
 
 
   notificaciones_vistas(id_usuario: number) {
-    const req = new HttpRequest('PUT', `${environment.url_back}/notificacion/visto`, { id_usuario }, {responseType:"text"});
+    const req = new HttpRequest('PUT', `${environment.url_back}/notificacion/visto`, { id_usuario }, { responseType: "text" });
     return this._http.request(req);
   }
 

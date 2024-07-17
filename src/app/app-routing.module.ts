@@ -44,6 +44,7 @@ import { VistaConfigsPracticaComponent } from './vistas/vista-configs-practica/v
 import { PlagiosComponent } from "./vistas/plagios/plagios.component"
 
 import { DocumentacionComponent } from './vistas/documentacion/documentacion.component';
+import { PasswordRecoveryComponent } from './vistas/password-recovery/password-recovery.component';
 
 
 const routes: Routes = [
@@ -61,7 +62,7 @@ const routes: Routes = [
           { path: 'empresas', component: EmpresasComponent },
           { path: 'iniciarpractica/:n', component: IniciarPracticaComponent },
           { path: 'perfil', component: PerfilComponent },
-          { path: 'publicaciones', component: PublicacionesComponent}
+          { path: 'publicaciones', component: PublicacionesComponent }
         ]
       }
     ]
@@ -71,11 +72,12 @@ const routes: Routes = [
   { path: environment.ruta_registro, component: RegistroComponent, data: { title: 'Registro' } },
   { path: environment.ruta_login, component: LoginComponent, data: { title: 'Login' } },
   { path: 'blank', component: BlankComponent },
-  { path: 'resetPass', component: ForgotPasswordComponent },
+  { path: environment.ruta_reset_pass, component: ForgotPasswordComponent },
+  { path: 'password_recovery/:n/:token', component: PasswordRecoveryComponent },
   { path: 'estadisticas', component: EstadisticasComponent },
-  { path: 'documentacion', component: DocumentacionComponent},
-  { 
-    path: 'admin', 
+  { path: 'documentacion', component: DocumentacionComponent },
+  {
+    path: 'admin',
     children: [
       { path: '', component: AdminComponent },
     ]
@@ -88,7 +90,7 @@ const routes: Routes = [
   { path: environment.ruta_alumno + '/:id/chat/:room/:id1/:id2/:tipo', component: ChatComponent },
   { path: environment.ruta_alumno + '/:id/historial', component: NotisHistorialComponent },
   { path: "historial", component: NotisHistorialComponent },
-  { path: 'publicaciones', component: PublicacionesComponent},
+  { path: 'publicaciones', component: PublicacionesComponent },
   { path: 'chat/:room/:id1/:id2/:tipo', component: ChatComponent },
   { path: 'informe/:id_practica/:id_informe', component: InformeComponent },
   { path: 'encuestaFinal/:id_practica', component: EncuestaFinPracticaComponent },
@@ -103,8 +105,8 @@ const routes: Routes = [
   { path: 'guias/config-practica', component: ConfigPracticaComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: "plagios/:id_practica", component: PlagiosComponent },
-  { path: 'documentacion', component: DocumentacionComponent},
-  { path: 'confirmar-inicio-practica', component: ConfirmarInicioPracticaComponent},
+  { path: 'documentacion', component: DocumentacionComponent },
+  { path: 'confirmar-inicio-practica', component: ConfirmarInicioPracticaComponent },
   { path: 'usuario/confirmacion', component: ConfirmacionUsuarioComponent },
   { path: '**', component: PnfComponent },
 
@@ -142,5 +144,6 @@ export const routingComponents = [
   DetalleEstudianteComponent,
   EncuestaFinPracticaComponent,
   PublicacionesComponent,
-  PlagiosComponent
+  PlagiosComponent,
+  PasswordRecoveryComponent,
 ]

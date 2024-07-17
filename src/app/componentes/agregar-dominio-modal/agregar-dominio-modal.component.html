@@ -1,4 +1,4 @@
-<div class="modal fade" id="crear-carrera-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="agregar-dominio-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -6,10 +6,10 @@
                 <h2 class="modal-title" id="exampleModalLabel">Asignar</h2>
             </div>
             <div class="modal-body">
-                Ingrese una o varias carreras, para hacerlo utilice una linea por carrera.
-                <form class="asignacion" [formGroup]="carreraForm">
+                Ingrese una o varios dominios, para hacerlo utilice una linea por dominio.
+                <form class="asignacion" [formGroup]="dominiosForm">
                     <textarea class="form-control form-control-user" id="exampleFirstName"
-                        placeholder="Ingrese una o varias carreras aqui..." formControlName="nombre" name="nombre">
+                        placeholder="Ingrese una o varios dominios aqui..." formControlName="dominios" name="dominios">
                     </textarea>
                 </form>
 

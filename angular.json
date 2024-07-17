@@ -69,8 +69,8 @@
 							"budgets": [
 								{
 									"type": "initial",
-									"maximumWarning": "2mb",
-									"maximumError": "4mb"
+									"maximumWarning": "4mb",
+									"maximumError": "6mb"
 								},
 								{
 									"type": "anyComponentStyle",
@@ -100,11 +100,11 @@
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"configurations": {
-						"production": {
-							"browserTarget": "praxus:build:production"
+            "production": {
+              "buildTarget": "praxus:build:production"
 						},
-						"development": {
-							"browserTarget": "praxus:build:development"
+            "development": {
+              "buildTarget": "praxus:build:development"
 						}
 					},
 					"defaultConfiguration": "development",
@@ -114,8 +114,8 @@
 				},
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
-					"options": {
-						"browserTarget": "praxus:build"
+          "options": {
+            "buildTarget": "praxus:build"
 					}
 				},
 				"test": {

@@ -21,7 +21,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
-
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -37,6 +37,7 @@ import { BlankComponent } from './vistas/blank/blank.component';
 import { RegistroComponent } from './vistas/registro/registro.component';
 import { ForgotPasswordComponent } from './vistas/forgot-password/forgot-password.component';
 import { EstadisticasComponent } from './vistas/estadisticas/estadisticas.component';
+import { PasswordRecoveryComponent } from './vistas/password-recovery/password-recovery.component';
 
 import { FooterComponent } from './componentes/footer/footer.component';
 import { BarraSuperiorComponent } from './componentes/barra-superior/barra-superior.component';
@@ -95,6 +96,8 @@ import { ConfirmarInicioPracticaComponent } from './vistas/confirmar-inicio-prac
 import { ConfirmacionUsuarioComponent } from './vistas/confirmacion-usuario/confirmacion-usuario.component';
 import { SubirArchivoInformeFinalComponent } from './componentes/subir-archivo-informe-final/subir-archivo-informe-final.component';
 import { EditarArchivoEncargadoComponent } from './componentes/editar-archivo-encargado/editar-archivo-encargado.component';
+import { AgregarDominioModalComponent } from "./componentes/agregar-dominio-modal/agregar-dominio-modal.component";
+import { authInterceptor } from "./interceptores/auth/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -156,6 +159,8 @@ import { EditarArchivoEncargadoComponent } from './componentes/editar-archivo-en
     ConfirmacionUsuarioComponent,
     SubirArchivoInformeFinalComponent,
     EditarArchivoEncargadoComponent,
+    AgregarDominioModalComponent,
+    PasswordRecoveryComponent,
   ],
   imports: [
     BrowserModule,
@@ -196,6 +201,7 @@ import { EditarArchivoEncargadoComponent } from './componentes/editar-archivo-en
     ArchivosService,
     SupervisorService,
     CookieService,
+    provideHttpClient(withInterceptors([authInterceptor])),
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
   bootstrap: [AppComponent]
 })

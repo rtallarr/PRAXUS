@@ -7,9 +7,10 @@ export const commonEnv = {
     ruta_documento_extra: "documento_extra",
     ruta_documento: "documento",
     ruta_informe: "informe",
-    url_back: 'https://logilink.hopto.org:3000',
-    url_back_chat: 'https://logilink.hopto.org:5000',
-    url_front: 'https://logilink.hopto.org',
+    ruta_reset_pass: "resetPass",
+    url_back: 'https://praxusback.hopto.org:3000',
+    url_back_chat: 'https://praxusback.hopto.org:5000',
+    url_front: 'https://praxus.hopto.org',
     estado_practica: {
         no_iniciada: 'No iniciada',
         en_curso: 'En curso',

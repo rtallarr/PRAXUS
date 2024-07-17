@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../servicios/usuario/usuario.service';
+import { CarreraService } from '../../servicios/carrera/carrera.service';
+import { DominiosAceptadosService } from '../../servicios/dominios_aceptados/dominios-aceptados.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from "@angular/router";
@@ -28,35 +30,46 @@ export class RegistroComponent implements OnInit {
   carreras: any = [];
   dominios: any = [];
 
-  constructor(public usuario: UsuarioService, private fb: FormBuilder,
-              private _snackBar: MatSnackBar, private router: Router) {
-    let respuesta:any = []
-      this.usuario.get_carreras().subscribe({
-        next:(data:any) => {
-          respuesta = {...respuesta, data}
-        },
-        error:(error:any) => {
-          console.log(error);
-            return;
-          },
-        complete:() => {
-          for(var val of respuesta.data.body){
-            this.carreras.push(val);
-            this.comprobar_dominio(val);
-          }
+  constructor(
+    public usuario: UsuarioService, public carrera_service: CarreraService,
+    public dominios_service: DominiosAceptadosService, private fb: FormBuilder,
+    private _snackBar: MatSnackBar, private router: Router
+  ) {
+    let respuesta: any = {}
+    carrera_service.obtener_carreras().subscribe({
+      next: (data: any) => {
+        respuesta = { ...respuesta, data }
+      },
+      error: (error: any) => {
+        return;
+      },
+      complete: () => {
+        for (var val of respuesta.data.body) {
+          this.carreras.push(val);
         }
-      });
+      }
+    });
+    let respuesta_dominios: any = {};
+    dominios_service.get_all().subscribe({
+      next: (data: any) => {
+        respuesta_dominios = { ...respuesta, ...data };
+      },
+      error: (err: any) => { },
+      complete: () => {
+        respuesta_dominios.body.forEach((obj: any) => {
+          this.dominios.push(obj.dominio);
+        });
+      }
+
+    })
     this.createForm();
-    for(let carrera of this.carreras){
-      console.log(carrera.id)
-    }
   }
 
   // funcion de comprobacion de correo
 
-  comprobar_dominio(val: any){
+  comprobar_dominio(val: any) {
     let dominio = val.correos_admitidos;
-    if(this.dominios.indexOf(dominio) == -1 && dominio != null && dominio != ""){
+    if (this.dominios.indexOf(dominio) == -1 && dominio != null && dominio != "") {
       this.dominios.push(dominio);
     }
     return;
@@ -70,20 +83,20 @@ export class RegistroComponent implements OnInit {
       dom: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(3)]],
       confirmPassword: ['', Validators.required],
-      RUT: ['',Validators.required],
-      id_carrera:['',Validators.required]
+      RUT: ['', Validators.required],
+      id_carrera: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
-    
+
   }
 
   register() {
     const data = this.registroForm.value;
     this.RUT = data.RUT
     //this.email = data.email
-    this.email= data.email+"@"+data.dom;
+    this.email = data.email + "@" + data.dom;
     this.nombre = data.nombre + " " + data.apellido;
     this.id_carrera = data.id_carrera;
     if (this.es_estudiante) {

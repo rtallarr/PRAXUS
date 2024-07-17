@@ -19,7 +19,7 @@ export class EvaluacionComponent {
   boton_comenzar_deshabilitado = true;
 
   // Aqui se guardan temporalmente las respuestas mientras se llena el formulario. Estas se procesan antes de enviarlas al backend.
-  respuestas: any[] = []; 
+  respuestas: any[] = [];
 
   aptitudes_evaluacion: any = [];
 
@@ -27,19 +27,19 @@ export class EvaluacionComponent {
   array_rango_aptitudes: any = [];
 
 
-  constructor(private service_supervisor: SupervisorService, private _snackbar: MatSnackBar, private router: Router, private activated_route: ActivatedRoute) {}
-   
+  constructor(private service_supervisor: SupervisorService, private _snackbar: MatSnackBar, private router: Router, private activated_route: ActivatedRoute) { }
+
   isAnimating = false; // Flag to indicate whether an animation is in progress
   izq() {
     if (this.isAnimating) {
       return; // Don't allow animation if one is already in progress
     }
-    
+
     let id = `#cont_respuesta${this.pregunta_actual}`;
     let id_izq = `#cont_respuesta${this.pregunta_actual - 1}`;
-  
+
     this.isAnimating = true; // Set the flag
-  
+
     $(id).fadeOut(() => {
       $(id).css("display", "none");
       $(id_izq).css({ "display": "block" });
@@ -49,17 +49,17 @@ export class EvaluacionComponent {
       this.pregunta_actual -= 1;
     });
   }
-  
+
   der() {
     if (this.isAnimating) {
       return; // Don't allow animation if one is already in progress
     }
-    
+
     let id = `#cont_respuesta${this.pregunta_actual}`;
     let id_der = `#cont_respuesta${this.pregunta_actual + 1}`;
-  
+
     this.isAnimating = true; // Set the flag
-  
+
     $(id).fadeOut(() => {
       $(id).css("display", "none");
       $(id_der).css({ "display": "block" });
@@ -96,8 +96,8 @@ export class EvaluacionComponent {
       complete: () => {
         this.practica = practica.body;
         //console.log("PRACTICA OBTENIDA", practica);
-        if(this.practica.hasOwnProperty('estado') && this.practica.estado == "Evaluada" || 
-        this.practica.estado == "Aprobada" || this.practica.estado == "Reprobada") {
+        if (this.practica.hasOwnProperty('estado') && this.practica.estado == "Evaluada" ||
+          this.practica.estado == "Aprobada" || this.practica.estado == "Reprobada") {
           this._snackbar.open("Error: la práctica ya ha sido evaluada.", "Cerrar", {
             duration: 3000,
             panelClass: ['red-snackbar']
@@ -105,16 +105,16 @@ export class EvaluacionComponent {
           setTimeout(() => {
             this.router.navigate(['/']);
             return;
-          }, 2000);          
+          }, 2000);
         }
-        else{
+        else {
           this.boton_comenzar_deshabilitado = false;
         }
 
         if (this.practica.hasOwnProperty('modalidad') && this.practica.modalidad.hasOwnProperty('id_config_practica')) {
           this.id_config_practica = this.practica.modalidad.id_config_practica
           if (this.practica.modalidad.config_practica.hasOwnProperty('pregunta_supervisors')) {
-            this.preguntas = this.practica.modalidad.config_practica.pregunta_supervisors;            
+            this.preguntas = this.practica.modalidad.config_practica.pregunta_supervisors;
             if (this.preguntas.length > 0) {
               console.log(0)
               for (let pregunta of this.preguntas) {
@@ -134,9 +134,9 @@ export class EvaluacionComponent {
                   this.aptitudes_evaluacion = array_aux_aptitudes;
                   this.rango_aptitudes = pregunta.rango;
                   console.log("RANGO APTITUDES", this.rango_aptitudes);
-                  this.array_rango_aptitudes = Array.from({length: this.rango_aptitudes}, (_, i) => i + 1);
+                  this.array_rango_aptitudes = Array.from({ length: this.rango_aptitudes }, (_, i) => i + 1);
 
-                  
+
                   for (let i = 0; i < pregunta.opciones.split(";;").length; i++) {
                     array_aux_evaluacion.push(-1);
                   }
@@ -147,7 +147,7 @@ export class EvaluacionComponent {
                 }
                 this.tipo_respuestas.push(pregunta.tipo_respuesta);
               }
-              
+
             }
             else {
               this._snackbar.open("Error: la práctica no tiene preguntas asociadas.", "Cerrar", {
@@ -194,7 +194,7 @@ export class EvaluacionComponent {
     //console.log(this.respuestas);
   }
 
-  updateRespuestasEvaluacion(index_pregunta: number, index_aptitud: number ,value: number) {
+  updateRespuestasEvaluacion(index_pregunta: number, index_aptitud: number, value: number) {
     //console.log("UPDATEANDO RESPUESTAS evaluacion", value);
     //this.respuestas[index_pregunta][index_aptitud] = value;
     //console.log(this.respuestas);
@@ -208,7 +208,7 @@ export class EvaluacionComponent {
 
   range(n: number): any[] {
     let range = [];
-    for(let i=1; i<=n; i++){
+    for (let i = 1; i <= n; i++) {
       range.push(i);
     }
     return range;
@@ -267,11 +267,11 @@ export class EvaluacionComponent {
           }
         }
       }
-      else{
+      else {
         respuesta_aux = this.respuestas[i];
       }
       respuestas_aux.push(respuesta_aux);
-      ids_preguntas.push(this.preguntas[i].id);     
+      ids_preguntas.push(this.preguntas[i].id);
     }
     // enviar respuestas al backend
     this.service_supervisor.sendAnswer(ids_preguntas, this.practica.id, respuestas_aux).subscribe({
@@ -289,39 +289,43 @@ export class EvaluacionComponent {
           duration: 3000,
           panelClass: ['green-snackbar']
         });
+        setTimeout(() => {
+          this.router.navigate(['/']);
+          return;
+        }, 2000);
         // after 2 seconds, redirect to home
-        this.service_supervisor.setFragmentos(this.practica.id, { }).subscribe({
-          next: (data: any) => {
-          },
-          error: (error: any) => {
-            console.log(error);
-            this._snackbar.open("Error al enviar la respuesta", "Cerrar", {
-              duration: 2000,
-              panelClass: ['red-snackbar']
-            });
-          },
-          complete: () => {
-            this.service_supervisor.setRepeticiones(this.practica.id).subscribe({
-              next: (data: any) => {
-              },
-              error: (error: any) => {
-                console.log(error);
-                this._snackbar.open("Error al enviar la respuesta", "Cerrar", {
-                  duration: 2000,
-                  panelClass: ['red-snackbar']
-                });
-              },
-              complete: () => {
-                setTimeout(() => {
-                  this.router.navigate(['/']);
-                  return;
-                }, 2000); 
-              }
-            });
-          }
-        });
-        
+        // this.service_supervisor.setFragmentos(this.practica.id, { }).subscribe({
+        //   next: (data: any) => {
+        //   },
+        //   error: (error: any) => {
+        //     console.log(error);
+        //     this._snackbar.open("Error al enviar la respuesta", "Cerrar", {
+        //       duration: 2000,
+        //       panelClass: ['red-snackbar']
+        //     });
+        //   },
+        //   complete: () => {
+        //     this.service_supervisor.setRepeticiones(this.practica.id).subscribe({
+        //       next: (data: any) => {
+        //       },
+        //       error: (error: any) => {
+        //         console.log(error);
+        //         this._snackbar.open("Error al enviar la respuesta", "Cerrar", {
+        //           duration: 2000,
+        //           panelClass: ['red-snackbar']
+        //         });
+        //       },
+        //       complete: () => {
+        //         setTimeout(() => {
+        //           this.router.navigate(['/']);
+        //           return;
+        //         }, 2000); 
+        //       }
+        //     });
+        //   }
+        // });
+
       }
-    });    
+    });
   }
 }

@@ -67,7 +67,7 @@
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     Correo:
                                     <input type="text" class="form-control form-control-user" id="exampleInputEmail"
-                                    placeholder="alias" formControlName="email" name="email">
+                                        placeholder="alias" formControlName="email" name="email">
                                     <div *ngIf="registroForm.controls['email'].invalid && (registroForm.controls['email'].dirty || registroForm.controls['email'].touched)"
                                         class="alert alert-danger">
                                         <p *ngIf="registroForm.controls['email'].errors?.['required']">
@@ -80,7 +80,8 @@
                                     Dominio:
                                     <select class="form-select" name="dom" id="dom" formControlName="dom">
                                         <option value="" disabled selected>Seleccione un dominio</option>
-                                        <option *ngFor="let dominio of dominios" value="{{dominio}}">@{{dominio}}</option>
+                                        <option *ngFor="let dominio of dominios" value="{{dominio}}">&#64;{{dominio}}
+                                        </option>
                                     </select>
                                     <div *ngIf="registroForm.controls['dom'].invalid && (registroForm.controls['dom'].dirty || registroForm.controls['dom'].touched)"
                                         class="alert alert-danger">
@@ -116,21 +117,22 @@
 
                             <div class="form-group">
                                 Ingrese su rut:
-                                <input class="form-control form-control-user" formControlName="RUT" type="text" name="RUT" placeholder="12345678-9"
-                                    required="required"/>
+                                <input class="form-control form-control-user" formControlName="RUT" type="text"
+                                    name="RUT" placeholder="12345678-9" required="required" />
                             </div>
                             <div class="form-group">
-                                Seleccione su Carrera:
-                                <select class="form-select" name="id_carrera" id="id_carrera" formControlName="id_carrera">
-                                    <option value="" disabled selected>Seleccione un dominio</option>
-                                    <option *ngFor="let carrera of carreras" value="{{carrera.id}}">{{carrera.nombre}}</option>
+                                Carrera:
+                                <select class="form-select" name="id_carrera" id="id_carrera"
+                                    formControlName="id_carrera">
+                                    <option value="" disabled selected>Seleccione carrera</option>
+                                    <option *ngFor="let carrera of carreras" value="{{carrera.id}}">{{carrera.nombre}}
+                                    </option>
                                 </select>
                             </div>
                             <hr>
 
                             <button id="myBtn" type="submit" class="btn btn-primary btn-user btn-block"
-                                (click)="register()"
-                                [disabled]="registroForm.pristine || registroForm.invalid">
+                                (click)="register()" [disabled]="registroForm.pristine || registroForm.invalid">
                                 Registrar Cuenta
                             </button>
                             <script>
@@ -162,9 +164,9 @@
                 </div>
             </div>
         </div>
-   
 
-</div>
+
+    </div>
 
 
 </body>

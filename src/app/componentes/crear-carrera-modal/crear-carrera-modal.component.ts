@@ -14,7 +14,7 @@ export class CrearCarreraModalComponent implements OnInit {
   carreraForm: FormGroup;
   nombre: string;
 
-  createForm(){
+  createForm() {
     this.carreraForm = this.fb.group({
       nombre: ['', [Validators.required]]
     });
@@ -25,7 +25,7 @@ export class CrearCarreraModalComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  crear(){
+  crear() {
     const data = this.carreraForm.value;
     this.nombre = data.nombre;
     let lista = this.listar(this.nombre);
@@ -57,13 +57,13 @@ export class CrearCarreraModalComponent implements OnInit {
         });
       }
     });
-    
+
   }
 
-  listar(nombre: string){
+  listar(nombre: string) {
     let lista = nombre.split('\n');
-    for(let i = 0; i < lista.length; i++){
-      lista[i]=lista[i].trim();
+    for (let i = 0; i < lista.length; i++) {
+      lista[i] = lista[i].trim();
     }
     return lista;
   }

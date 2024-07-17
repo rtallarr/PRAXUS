@@ -33,24 +33,36 @@
                                         <div class="text-gray-900 mb-2">Sistema de prácticas universitarias</div>
                                     </div>
                                     <form class="user" [formGroup]="loginForm">
-                                        <div class="form-group">
-                                            Ingresar correo:
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="alias@dominio.com" formControlName="email" name="email">
-                                            <div *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)" 
-                                                class="alert alert-danger">
-                                                <p *ngIf="loginForm.controls['email'].errors?.['required']">
-                                                    Se requiere correo
-                                                </p>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6">
+                                                Ingresar usuario:
+                                                <input type="email" class="form-control form-control-user"
+                                                    id="exampleInputEmail" aria-describedby="emailHelp"
+                                                    placeholder="nombre.apellido" formControlName="email" name="email"
+                                                    required>
+                                                <div *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)"
+                                                    class="alert alert-danger">
+                                                    <p *ngIf="loginForm.controls['email'].errors?.['required']">
+                                                        Se requiere correo
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                Ingresar dominio:
+                                                <select class="form-select" name="dominio_select" id="dominio_select"
+                                                    formControlName="dominio_select" required>
+                                                    <option value="" disabled selected>Seleccione un dominio</option>
+                                                    <option *ngFor="let dominio of lista_dominios" value="{{dominio}}">
+                                                        &#64;{{dominio}}</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             Ingresar contraseña:
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="**********"
-                                                name="password" formControlName="password">
-                                            <div *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)" 
+                                                id="exampleInputPassword" placeholder="**********" name="password"
+                                                formControlName="password">
+                                            <div *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)"
                                                 class="alert alert-danger">
                                                 <p *ngIf="loginForm.controls['password'].errors?.['required']">
                                                     Se requiere contraseña
@@ -68,11 +80,11 @@
                                         </button>
                                         <script>
                                             var input = document.getElementById("exampleInputPassword");
-                                            input.addEventListener("keypress", function(event) {
-                                            if (event.key === "Enter") {
-                                                event.preventDefault();
-                                                document.getElementById("myBtn").click();
-                                            }
+                                            input.addEventListener("keypress", function (event) {
+                                                if (event.key === "Enter") {
+                                                    event.preventDefault();
+                                                    document.getElementById("myBtn").click();
+                                                }
                                             });
                                         </script>
                                         <hr>
