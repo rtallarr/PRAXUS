@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { SupervisorService } from '../../servicios/supervisor/supervisor.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from "@angular/router"
-import * as $ from 'jquery';
+
+declare const $: JQueryStatic;
 
 @Component({
   selector: 'evaluacion_supervisor',

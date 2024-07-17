@@ -1,3 +1,4 @@
+<script src="vendor/jquery/jquery.min.js"></script>
 <div id="wrapper">
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -11,36 +12,39 @@
                     <!-- Column -->
                     <div class="col-lg-8" [ngSwitch]="pregunta_actual">
                         <!-- Tarjeta inicial-->
-                        <div class="card border-left-primary shadow py-2" *ngSwitchDefault id="cont_respuesta0" >
+                        <div class="card border-left-primary shadow py-2" *ngSwitchDefault id="cont_respuesta0">
                             <div class="card-body">
-                                <div class="h4 mb-3 font-weight-bold text-gray-800 text-center"> 
+                                <div class="h4 mb-3 font-weight-bold text-gray-800 text-center">
                                     ¡Bienvenid&#64; a Praxus!
                                 </div>
-                                <div class="h5 mb-3 text-gray-800 text-center mx-auto w-50"> 
+                                <div class="h5 mb-3 text-gray-800 text-center mx-auto w-50">
                                     En esta página podrás evaluar al estudiante en práctica.
                                 </div>
-                                <div class="h5 mb-3 text-gray-800 text-center mx-auto w-50"> 
+                                <div class="h5 mb-3 text-gray-800 text-center mx-auto w-50">
                                     Para hacerlo, se te guiará por un par de preguntas.
                                 </div>
-                                <div class="h5 mb-3 text-gray-800 text-center mx-auto w-50"> 
+                                <div class="h5 mb-3 text-gray-800 text-center mx-auto w-50">
                                     Podrás avanzar o retrodecer en ellas haciendo click en los botones de abajo.
                                 </div>
-                                
-                                <div class="h5 mb-3 text-gray-800 text-center mx-auto w-50"> 
+
+                                <div class="h5 mb-3 text-gray-800 text-center mx-auto w-50">
                                     ¡Comencemos!
                                 </div>
-                                <button class="btn btn-primary btn-user btn-block btn-lg mx-auto w-25" (click)="der()" [disabled]="boton_comenzar_deshabilitado">
+                                <button class="btn btn-primary btn-user btn-block btn-lg mx-auto w-25" (click)="der()"
+                                    [disabled]="boton_comenzar_deshabilitado">
                                     Comenzar Evaluación
                                 </button>
                             </div>
                         </div><!-- Fin tarjeta inicial-->
                         <!-- For que recorre -->
-                        <div class="card border-left-primary shadow py-2" *ngFor="let pregunta of preguntas; let i = index" style="display: none;" id="cont_respuesta{{i+1}}">
+                        <div class="card border-left-primary shadow py-2"
+                            *ngFor="let pregunta of preguntas; let i = index" style="display: none;"
+                            id="cont_respuesta{{i+1}}">
                             <div class="card-body">
-                                <div class="h6 ml-4 mt-2  font-weight-bold text-gray-800"> 
+                                <div class="h6 ml-4 mt-2  font-weight-bold text-gray-800">
                                     Pregunta {{i+1}} de {{preguntas.length}}
                                 </div>
-                                <div class="h4 mb-3 font-weight-bold text-gray-800 text-center"> 
+                                <div class="h4 mb-3 font-weight-bold text-gray-800 text-center">
                                     {{ pregunta.enunciado }}
                                 </div>
                                 <div class="row">
@@ -48,32 +52,41 @@
                                     <div class="col-xl-8">
                                         <div [ngSwitch]="pregunta.tipo_respuesta">
                                             <!-- Para cada tipo de respuesta -->
-                                            <div *ngSwitchCase="'abierta'" >
-                                                <textarea class="form-control" rows="3" placeholder="Escriba su respuesta aquí..." id="abierta{{i}}"
-                                                    [(ngModel)]="respuestas[i]" (ngModelChange)="updateRespuestasAbierta(i, $event)" ></textarea>
+                                            <div *ngSwitchCase="'abierta'">
+                                                <textarea class="form-control" rows="3"
+                                                    placeholder="Escriba su respuesta aquí..." id="abierta{{i}}"
+                                                    [(ngModel)]="respuestas[i]"
+                                                    (ngModelChange)="updateRespuestasAbierta(i, $event)"></textarea>
                                             </div>
                                             <div class="form-check" *ngSwitchCase="'casillas'">
                                                 <div class="row">
                                                     <div class="col-xl-5"></div>
                                                     <div class="col-xl-4">
-                                                        <div *ngFor="let opcion of pregunta.opciones.split(';;'); let j = index">                              
-                                                            <input class="form-check-input" type="checkbox" value="{{opcion}}" id="checkbox{{i}}_{{j}}" 
-                                                                [(ngModel)]="respuestas[i][j]" (ngModelChange)="updateRespuestasCasillas(i, j, $event)">
+                                                        <div
+                                                            *ngFor="let opcion of pregunta.opciones.split(';;'); let j = index">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="{{opcion}}" id="checkbox{{i}}_{{j}}"
+                                                                [(ngModel)]="respuestas[i][j]"
+                                                                (ngModelChange)="updateRespuestasCasillas(i, j, $event)">
                                                             <label class="form-check-label" for="checkbox{{i}}_{{j}}">
                                                                 {{opcion}}
                                                             </label>
                                                         </div>
                                                     </div>
-                                                </div>  
+                                                </div>
                                             </div>
-                                            <div class="form-check" *ngSwitchCase="'alternativas'" >
+                                            <div class="form-check" *ngSwitchCase="'alternativas'">
                                                 <div class="row">
                                                     <div class="col-xl-5"></div>
                                                     <div class="col-xl-4">
-                                                        <div *ngFor="let opcion of pregunta.opciones.split(';;'); let j = index">
-                                                            <input class="form-check-input" type="radio" name="radio{{i}}" id="radioOpcion{{i}}_{{j}}" value="{{opcion}}"
-                                                                [(ngModel)]="respuestas[i]" (ngModelChange)="updateRespuestasAlternativas(i, $event)">
-                                                            <label class="form-check-label" for="radioOpcion{{i}}_{{j}}">
+                                                        <div
+                                                            *ngFor="let opcion of pregunta.opciones.split(';;'); let j = index">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="radio{{i}}" id="radioOpcion{{i}}_{{j}}"
+                                                                value="{{opcion}}" [(ngModel)]="respuestas[i]"
+                                                                (ngModelChange)="updateRespuestasAlternativas(i, $event)">
+                                                            <label class="form-check-label"
+                                                                for="radioOpcion{{i}}_{{j}}">
                                                                 {{opcion}}
                                                             </label>
                                                         </div>
@@ -88,33 +101,41 @@
                                                         <table>
                                                             <tr>
                                                                 <div class="row">
-                                                                    <div *ngFor="let aptitud of aptitudes_evaluacion; let j = index" class="row">
-                                                                        <td style="width:60%">{{aptitud}}:</td> 
-                                                                        <td style="width:40%">                                           
-                                                                            <select name="tipo" id="tipo" class="form-select form-select-sm mb-4" aria-label="Default select example" [(ngModel)]="respuestas[i][j]" (ngModelChange)="updateRespuestasEvaluacion(i,j, $event)">
-                                                                                <option value="-1">Seleccione nota</option>
+                                                                    <div *ngFor="let aptitud of aptitudes_evaluacion; let j = index"
+                                                                        class="row">
+                                                                        <td style="width:60%">{{aptitud}}:</td>
+                                                                        <td style="width:40%">
+                                                                            <select name="tipo" id="tipo"
+                                                                                class="form-select form-select-sm mb-4"
+                                                                                aria-label="Default select example"
+                                                                                [(ngModel)]="respuestas[i][j]"
+                                                                                (ngModelChange)="updateRespuestasEvaluacion(i,j, $event)">
+                                                                                <option value="-1">Seleccione nota
+                                                                                </option>
                                                                                 <!---
                                                                                 <option value="1">1</option>
                                                                                 <option value="2">2</option>
                                                                                 <option value="3">3</option>
                                                                                 <option value="4">4</option>
                                                                                 <option value="5">5</option> -->
-                                                                                <option *ngFor="let numero of array_rango_aptitudes"[value]="numero">{{numero}}</option>
+                                                                                <option
+                                                                                    *ngFor="let numero of array_rango_aptitudes"
+                                                                                    [value]="numero">{{numero}}</option>
                                                                             </select>
-                                                                        </td>          
+                                                                        </td>
                                                                     </div>
                                                                 </div>
-                                                                
+
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div><!-- Fin ngSwitch --> 
+                                        </div><!-- Fin ngSwitch -->
                                     </div><!-- Fin col -->
                                 </div><!-- Fin row -->
                                 <div class="row mt-5 mb-3 align-items-end">
-                                    <div class="col-xl-1"></div>                                
+                                    <div class="col-xl-1"></div>
                                     <div class="col-xl-4">
                                         <button class="btn btn-primary btn-user btn-block btn-md" (click)="izq()">
                                             Anterior
@@ -122,17 +143,18 @@
                                     </div>
                                     <div class="col-xl-2"></div>
                                     <div class="col-xl-4" *ngIf="i+1!=preguntas.length">
-                                        <button  class="btn btn-primary btn-user btn-block btn-md" (click)="der()">
+                                        <button class="btn btn-primary btn-user btn-block btn-md" (click)="der()">
                                             Siguiente
                                         </button>
                                     </div>
                                     <div class="col-xl-4" *ngIf="i+1==preguntas.length">
-                                        <button  class="btn btn-success btn-user btn-block btn-md" (click)="enviarEvaluacion()">
+                                        <button class="btn btn-success btn-user btn-block btn-md"
+                                            (click)="enviarEvaluacion()">
                                             Finalizar
                                         </button>
                                     </div>
                                 </div> <!-- Fin row -->
-                            </div> <!-- Fin card-body -->                           
+                            </div> <!-- Fin card-body -->
                         </div><!-- Fin for -->
                     </div>
                 </div>

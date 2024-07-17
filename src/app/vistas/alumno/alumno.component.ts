@@ -10,7 +10,6 @@ import { NotificacionesService } from 'src/app/servicios/notificaciones/notifica
 import { DataUsuarioService } from 'src/app/servicios/data_usuario/data-usuario.service';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { async } from 'rxjs';
-import { data } from 'jquery';
 import { Dialog } from '@angular/cdk/dialog';
 import { Console } from 'console';
 
@@ -133,7 +132,7 @@ export class DetalleAlumnoComponent implements OnInit {
             }
           }
         });
-        console.log("Practicas Correspondientes:",this.practicas_correspondiente_nombre)
+        console.log("Practicas Correspondientes:", this.practicas_correspondiente_nombre)
         //console.log("Nombres de configuraciones de practica:",this.nombres_config_practica)
 
         // Request para obtener todas las practicas de acuerdo al id del estudiante
@@ -241,8 +240,8 @@ export class DetalleAlumnoComponent implements OnInit {
               return !isNaN(respuesta_supervisors.respuesta);
             });
             */
-            
-            
+
+
 
             for (var item of this.evaluaciones) {
               this.hay_respuesta.push(0)
@@ -338,8 +337,8 @@ export class DetalleAlumnoComponent implements OnInit {
     // search for the id_practica in the array of practicas
     let practica = this.practicas.find((practica: any) => practica.id == id_practica);
     if (practica) {
-      let informe = practica.informes.find((informe: any) =>{
-        if(informe.fecha == fechaParseada && informe.config_informe.tipo_informe != "informe final"){
+      let informe = practica.informes.find((informe: any) => {
+        if (informe.fecha == fechaParseada && informe.config_informe.tipo_informe != "informe final") {
           return true;
         }
         return false;
@@ -386,8 +385,8 @@ export class DetalleAlumnoComponent implements OnInit {
           const day = date.getDate();
           const fechaParseada = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T12:00:00.000Z`;
           let informe = practica.informes.find((informe: any) => {
-            
-            if(informe.fecha == fechaParseada && informe.config_informe.tipo_informe != "informe final"){
+
+            if (informe.fecha == fechaParseada && informe.config_informe.tipo_informe != "informe final") {
               return true;
             }
             return false;
@@ -421,7 +420,7 @@ export class DetalleAlumnoComponent implements OnInit {
       },
       complete: () => {
         console.log("Respuesta comentarios:", response.body.data.respuesta_supervisors);
-        
+
 
 
         if (response.body.data.respuesta_supervisors.length == 0) {
@@ -430,7 +429,7 @@ export class DetalleAlumnoComponent implements OnInit {
         else {
           this.flag[response.body.data.id] = true;
         }
-        
+
         if (!this.resenas_supervisor.hasOwnProperty(id_practica)) {
           this.resenas_supervisor[id_practica] = [];
         }
