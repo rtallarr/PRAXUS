@@ -31,7 +31,6 @@
     "bootstrap": "^5.3.3",
     "dayjs": "^1.11.9",
     "express": "^4.18.2",
-    "jquery": "^3.7.0",
     "jspdf": "^2.5.1",
     "magic-bytes.js": "^1.0.15",
     "ngx-cookie-service": "^17.1.0",
