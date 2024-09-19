@@ -33,7 +33,7 @@
     "datatables.net": "^1.13.4",
     "datatables.net-dt": "^1.13.6",
     "dayjs": "^1.11.9",
-    "express": "^4.18.2",
+    "express": "^4.21.0",
     "jquery": "^3.7.0",
     "jspdf": "^2.5.1",
     "magic-bytes.js": "^1.0.15",
